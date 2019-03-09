@@ -41,10 +41,10 @@
     </div>
 </div>
 <script>
-    let arr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,''];
+    let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, ''];
     let indexOfVoid = 15;
-    let winCombination1 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,''];
-    let winCombination2 = [1,5,9,13,2,6,10,14,3,7,11,15,4,8,12,''];
+    let winCombination1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, ''];
+    let winCombination2 = [1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15, 4, 8, 12, ''];
 
 
     // fill all cells of the grid
@@ -56,6 +56,7 @@
             rand = Math.floor(rand);
             return rand;
         }
+
         while (mySet.size < 15) {
             mySet.add(randomInteger(1, 15));
         }
@@ -85,7 +86,7 @@
             move();
         }
 
-     checkWin(arr);
+        checkWin(arr);
     }
 
     function fillGrid() {
@@ -97,7 +98,8 @@
 
     function checkWin(arr) {
 
-        if(JSON.stringify(arr) == JSON.stringify(winCombination1) || JSON.stringify(arr) == JSON.stringify(winCombination2)) {
+        if (JSON.stringify(arr) === JSON.stringify(winCombination1)
+            || JSON.stringify(arr) === JSON.stringify(winCombination2)) {
             alert('You are the Winner');
         }
     }
