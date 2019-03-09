@@ -1,0 +1,112 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <title>15 puzzle</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="stylesheet" href="css/main.css">
+
+<body>
+<div id="game">
+    <div class="grid">
+        <div class="row">
+            <div class="cell" id='0'></div>
+            <div class="cell" id='1'></div>
+            <div class="cell" id='2'></div>
+            <div class="cell" id='3'></div>
+        </div>
+        <div class="row">
+            <div class="cell" id='4'></div>
+            <div class="cell" id='5'></div>
+            <div class="cell" id='6'></div>
+            <div class="cell" id='7'></div>
+        </div>
+        <div class="row">
+            <div class="cell" id='8'></div>
+            <div class="cell" id='9'></div>
+            <div class="cell" id='10'></div>
+            <div class="cell" id='11'></div>
+        </div>
+        <div class="row">
+            <div class="cell" id='12'></div>
+            <div class="cell" id='13'></div>
+            <div class="cell" id='14'></div>
+            <div class="cell" id='15'></div>
+        </div>
+        <div class="btn" onclick="shuffle()">Start</div>
+    </div>
+</div>
+<script>
+    let arr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,''];
+    let indexOfVoid = 15;
+    let winCombination1 = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,''];
+    let winCombination2 = [1,5,9,13,2,6,10,14,3,7,11,15,4,8,12,''];
+
+
+    // fill all cells of the grid
+    function shuffle() {
+        let mySet = new Set();
+
+        function randomInteger(min, max) {
+            let rand = min + Math.random() * (max + 1 - min);
+            rand = Math.floor(rand);
+            return rand;
+        }
+        while (mySet.size < 15) {
+            mySet.add(randomInteger(1, 15));
+        }
+        arr = Array.from(mySet);
+        arr.push('');
+        fillGrid();
+    }
+
+    function moveNumber(e) {
+        let position = parseInt(e.target.id);
+
+        function move() {
+            [arr[indexOfVoid], arr[position]] = [arr[position], arr[indexOfVoid]];
+            indexOfVoid = position;
+            fillGrid();
+        }
+
+        if (position === (indexOfVoid - 1)) {
+            move();
+        } else if (position === (indexOfVoid + 1)) {
+            move();
+
+        } else if (position === (indexOfVoid - 4)) {
+            move();
+
+        } else if (position === (indexOfVoid + 4)) {
+            move();
+        }
+
+     checkWin(arr);
+    }
+
+    function fillGrid() {
+        for (let num = 0; num < 16; num++) {
+            let n = num.toString();
+            document.getElementById(n).innerHTML = arr[num];
+        }
+    }
+
+    function checkWin(arr) {
+
+        if(JSON.stringify(arr) == JSON.stringify(winCombination1) || JSON.stringify(arr) == JSON.stringify(winCombination2)) {
+            alert('You are the Winner');
+        }
+    }
+
+    window.onload = fillGrid;
+    window.addEventListener('click', moveNumber);
+
+</script>
+
+</body>
+
+</html>
