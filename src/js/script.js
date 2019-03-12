@@ -37,10 +37,9 @@ function moveNumber(e) {
         case 1:
         case -4:
         case 4:
-            move()
+            move();
     }
 }
-
 
 function checkWin(currentCellsValues) {
     if (currentCellsValues.filter(element => element !== '').join('') === winCombination1
