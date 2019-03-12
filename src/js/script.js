@@ -1,63 +1,56 @@
-let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, ''];
-let indexOfVoid = 15;
-let winCombination1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-let winCombination2 = [1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15, 4, 8, 12];
+let currentCellsValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, ''];
+let winCombination1 = '123456789101112131415';
+let winCombination2 = '159132610143711154812';
+
+function fillGrid() {
+    for (let value = 0; value < currentCellsValues.length; value++) {
+        let id = value.toString();
+        document.getElementById(id).innerHTML = currentCellsValues[value];
+    }
+}
 
 function shuffle() {
-    let mySet = new Set();
-
-    function randomInteger(min, max) {
-        let rand = min + Math.random() * (max + 1 - min);
-        rand = Math.floor(rand);
-        return rand;
+    for (let i = currentCellsValues.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [currentCellsValues[i], currentCellsValues[j]] = [currentCellsValues[j], currentCellsValues[i]];
     }
-
-    while (mySet.size < 15) {
-        mySet.add(randomInteger(1, 15));
-    }
-    arr = Array.from(mySet);
-    arr.push('');
-    fillGrid();
+    return fillGrid(currentCellsValues);
 }
 
 function moveNumber(e) {
-    let position = parseInt(e.target.id);
+    let indexOfEmptyCell = currentCellsValues.indexOf('');
+    let indexOfMovingCell = parseInt(e.target.id);
+    let move = function () {
+        [currentCellsValues[indexOfEmptyCell], currentCellsValues[indexOfMovingCell]] =
+            [currentCellsValues[indexOfMovingCell], currentCellsValues[indexOfEmptyCell]];
 
-    function move() {
-        [arr[indexOfVoid], arr[position]] = [arr[position], arr[indexOfVoid]];
-        indexOfVoid = position;
-        fillGrid();
+        document.getElementById(indexOfMovingCell.toString()).innerHTML = currentCellsValues[indexOfMovingCell];
+        document.getElementById(indexOfEmptyCell.toString()).innerHTML = currentCellsValues[indexOfEmptyCell];
+        checkWin(currentCellsValues);
+
+        indexOfEmptyCell = indexOfMovingCell;
     }
 
-    if (position === (indexOfVoid - 1)) {
+    if (indexOfMovingCell === (indexOfEmptyCell - 1)) {
         move();
-    } else if (position === (indexOfVoid + 1)) {
-        move();
-
-    } else if (position === (indexOfVoid - 4)) {
+    } else if (indexOfMovingCell === (indexOfEmptyCell + 1)) {
         move();
 
-    } else if (position === (indexOfVoid + 4)) {
+    } else if (indexOfMovingCell === (indexOfEmptyCell - 4)) {
         move();
-    }
 
-    checkWin(arr);
-}
-
-function fillGrid() {
-    for (let num = 0; num < 16; num++) {
-        let n = num.toString();
-        document.getElementById(n).innerHTML = arr[num];
+    } else if (indexOfMovingCell === (indexOfEmptyCell + 4)) {
+        move();
     }
 }
 
-function checkWin(arr) {
 
-    if (JSON.stringify(arr.filter(element => element !== '')) === JSON.stringify(winCombination1)
-        || JSON.stringify(arr.filter(element => element !== '')) === JSON.stringify(winCombination2)) {
+function checkWin(currentCellsValues) {
+    if (currentCellsValues.filter(element => element !== '').join('') === winCombination1
+        || currentCellsValues.filter(element => element !== '').join('') === winCombination2) {
         alert('You are the Winner');
     }
 }
 
-window.onload = fillGrid;
+window.addEventListener("load", fillGrid);
 window.addEventListener('click', moveNumber);
