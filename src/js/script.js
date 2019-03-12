@@ -30,17 +30,14 @@ function moveNumber(e) {
 
         indexOfEmptyCell = indexOfMovingCell;
     }
+    let differenceToPassCondition = indexOfMovingCell - indexOfEmptyCell;
 
-    if (indexOfMovingCell === (indexOfEmptyCell - 1)) {
-        move();
-    } else if (indexOfMovingCell === (indexOfEmptyCell + 1)) {
-        move();
-
-    } else if (indexOfMovingCell === (indexOfEmptyCell - 4)) {
-        move();
-
-    } else if (indexOfMovingCell === (indexOfEmptyCell + 4)) {
-        move();
+    switch (differenceToPassCondition) {
+        case -1:
+        case 1:
+        case -4:
+        case 4:
+            move()
     }
 }
 
