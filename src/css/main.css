@@ -1,0 +1,42 @@
+body {
+    background-color: #7cd1d6;
+    color: #ffffff;
+    font-size: 22px;
+}
+
+.grid {
+    position: absolute;
+    display: block;
+    width: auto;
+    height: auto;
+    top: 50%;
+    margin-top: -100px;
+    left: 50%;
+    margin-left: -100px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.cell {
+    background-color: #50a393;
+    height: 50px;
+    width: 50px;
+    margin: 2px;
+    border: 2px #4ba277 solid;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn {
+    margin: 0 auto;
+    text-align: center;
+    width: 60px;
+    height: 28px;
+    background-color: #548ac6;
+    border: 2px #314077 solid;
+    cursor: pointer;
+    border-radius: 5px;
+}
